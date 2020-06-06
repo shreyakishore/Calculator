@@ -55,7 +55,7 @@ class _State extends State<MyApp> {
             Container(
 //              margin: EdgeInsets.only(left: 10.0, right: 10),
               color: Colors.black87,
-              height: 150.0,
+              height: 185.0,
               child: Center(
                 child: new TextFormField(
                   textAlign: TextAlign.right,
@@ -76,7 +76,7 @@ class _State extends State<MyApp> {
             ),
             Expanded(
               child: Container(
-                color: Colors.black12,
+                color: Colors.black,
                 child: GridView.count(
                   crossAxisCount: 4,
                   // ignore: missing_return
@@ -86,6 +86,8 @@ class _State extends State<MyApp> {
                       return Container(
                         height: 55.0,
                         child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0)),
                           color: Colors.black26,
                           elevation: 0,
                           child: InkWell(
@@ -104,6 +106,7 @@ class _State extends State<MyApp> {
                                     0, existingText.length - 1);
                               } else if (symbols[index] == "=") {
                                 String expression = textBox.text;
+                                print(expression);
                                 if (expression[0] == "+" ||
                                     expression[0] == "-" ||
                                     expression[0] == "/" ||
@@ -136,67 +139,321 @@ class _State extends State<MyApp> {
                                     iterator < expression.length;
                                     iterator++) {
                                   if (expression[iterator] == "*") {
-                                    int previous =
-                                        int.parse(expression[iterator - 1]);
-                                    int next =
-                                        int.parse(expression[iterator + 1]);
+                                    int previous = iterator - 1;
+                                    int iPrev = iterator - 2;
+                                    int prevIterator;
+                                    if (iPrev >= 0 &&
+                                        expression[iPrev] != "+" &&
+                                        expression[iPrev] != "-" &&
+                                        expression[iPrev] != "*" &&
+                                        expression[iPrev] != "/" &&
+                                        expression[iPrev] != "%") {
+                                      while (iPrev >= 0 &&
+                                          expression[iPrev] != "+" &&
+                                          expression[iPrev] != "-" &&
+                                          expression[iPrev] != "*" &&
+                                          expression[iPrev] != "/" &&
+                                          expression[iPrev] != "%") {
+                                        iPrev = iPrev - 1;
+                                      }
+                                      print("iPrev");
+                                      print(iPrev);
+                                      print("previous");
+                                      print(previous);
+                                      previous = int.parse(expression.substring(
+                                          iPrev + 1, previous + 1));
+                                      prevIterator = iPrev + 1;
+                                    } else {
+                                      previous =
+                                          int.parse(expression[iterator - 1]);
+                                      prevIterator = iterator - 1;
+                                    }
+                                    print("previous");
+                                    print(previous.toString());
+
+                                    int next = iterator + 1;
+                                    int iNext = iterator + 2;
+                                    int nextIterator;
+                                    if (iNext <= expression.length - 1 &&
+                                        expression[iNext] != "+" &&
+                                        expression[iNext] != "-" &&
+                                        expression[iNext] != "*" &&
+                                        expression[iNext] != "/" &&
+                                        expression[iNext] != "%") {
+                                      while (iNext <= expression.length - 1 &&
+                                          expression[iNext] != "+" &&
+                                          expression[iNext] != "-" &&
+                                          expression[iNext] != "*" &&
+                                          expression[iNext] != "/" &&
+                                          expression[iNext] != "%") {
+                                        iNext = iNext + 1;
+                                      }
+                                      next = int.parse(
+                                          expression.substring(next, iNext));
+                                      nextIterator = iNext - 1;
+                                    } else {
+                                      next =
+                                          int.parse(expression[iterator + 1]);
+                                      nextIterator = iterator + 1;
+                                    }
+
+                                    print("next");
+                                    print(next);
+
                                     int replacement = previous * next;
-                                    expression = expression.substring(
-                                            0, iterator - 1) +
-                                        replacement.toString() +
-                                        expression.substring(
-                                            iterator + 2, expression.length);
+                                    print(replacement);
+                                    print("prevIterator");
+                                    print(prevIterator);
+                                    print("nextIterator");
+                                    print(nextIterator);
+                                    expression =
+                                        expression.substring(0, prevIterator) +
+                                            replacement.toString() +
+                                            expression.substring(
+                                                nextIterator + 1,
+                                                expression.length);
                                   }
+                                  print(expression);
                                 }
                                 for (int iterator = 0;
                                     iterator < expression.length;
                                     iterator++) {
                                   if (expression[iterator] == "/") {
-                                    int previous =
-                                        int.parse(expression[iterator - 1]);
-                                    int next =
-                                        int.parse(expression[iterator + 1]);
+                                    int previous = iterator - 1;
+                                    int iPrev = iterator - 2;
+                                    int prevIterator;
+                                    if (iPrev >= 0 &&
+                                        expression[iPrev] != "+" &&
+                                        expression[iPrev] != "-" &&
+                                        expression[iPrev] != "*" &&
+                                        expression[iPrev] != "/" &&
+                                        expression[iPrev] != "%") {
+                                      while (iPrev >= 0 &&
+                                          expression[iPrev] != "+" &&
+                                          expression[iPrev] != "-" &&
+                                          expression[iPrev] != "*" &&
+                                          expression[iPrev] != "/" &&
+                                          expression[iPrev] != "%") {
+                                        iPrev = iPrev - 1;
+                                      }
+                                      print("iPrev");
+                                      print(iPrev);
+                                      print("previous");
+                                      print(previous);
+                                      previous = int.parse(expression.substring(
+                                          iPrev + 1, previous + 1));
+                                      prevIterator = iPrev + 1;
+                                    } else {
+                                      previous =
+                                          int.parse(expression[iterator - 1]);
+                                      prevIterator = iterator - 1;
+                                    }
+                                    print("previous");
+                                    print(previous.toString());
+
+                                    int next = iterator + 1;
+                                    int iNext = iterator + 2;
+                                    int nextIterator;
+                                    if (iNext <= expression.length - 1 &&
+                                        expression[iNext] != "+" &&
+                                        expression[iNext] != "-" &&
+                                        expression[iNext] != "*" &&
+                                        expression[iNext] != "/" &&
+                                        expression[iNext] != "%") {
+                                      while (iNext <= expression.length - 1 &&
+                                          expression[iNext] != "+" &&
+                                          expression[iNext] != "-" &&
+                                          expression[iNext] != "*" &&
+                                          expression[iNext] != "/" &&
+                                          expression[iNext] != "%") {
+                                        iNext = iNext + 1;
+                                      }
+                                      next = int.parse(
+                                          expression.substring(next, iNext));
+                                      nextIterator = iNext - 1;
+                                    } else {
+                                      next =
+                                          int.parse(expression[iterator + 1]);
+                                      nextIterator = iterator + 1;
+                                    }
+
+                                    print("next");
+                                    print(next);
+
                                     double replacement = previous / next;
-                                    print(replacement.toInt().toString());
-                                    expression = expression.substring(
-                                            0, iterator - 1) +
-                                        replacement.toInt().toString() +
-                                        expression.substring(
-                                            iterator + 2, expression.length);
+                                    print(replacement);
+                                    print("prevIterator");
+                                    print(prevIterator);
+                                    print("nextIterator");
+                                    print(nextIterator);
+                                    expression =
+                                        expression.substring(0, prevIterator) +
+                                            replacement.toInt().toString() +
+                                            expression.substring(
+                                                nextIterator + 1,
+                                                expression.length);
                                   }
+                                  print(expression);
                                 }
                                 for (int iterator = 0;
                                     iterator < expression.length;
                                     iterator++) {
                                   if (expression[iterator] == "+") {
-                                    int previous =
-                                        int.parse(expression[iterator - 1]);
-                                    int next =
-                                        int.parse(expression[iterator + 1]);
+                                    int previous = iterator - 1;
+                                    int iPrev = iterator - 2;
+                                    int prevIterator;
+                                    if (iPrev >= 0 &&
+                                        expression[iPrev] != "+" &&
+                                        expression[iPrev] != "-" &&
+                                        expression[iPrev] != "*" &&
+                                        expression[iPrev] != "/" &&
+                                        expression[iPrev] != "%") {
+                                      while (iPrev >= 0 &&
+                                          expression[iPrev] != "+" &&
+                                          expression[iPrev] != "-" &&
+                                          expression[iPrev] != "*" &&
+                                          expression[iPrev] != "/" &&
+                                          expression[iPrev] != "%") {
+                                        iPrev = iPrev - 1;
+                                      }
+                                      print("iPrev");
+                                      print(iPrev);
+                                      print("previous");
+                                      print(previous);
+                                      previous = int.parse(expression.substring(
+                                          iPrev + 1, previous + 1));
+                                      prevIterator = iPrev + 1;
+                                    } else {
+                                      previous =
+                                          int.parse(expression[iterator - 1]);
+                                      prevIterator = iterator - 1;
+                                    }
+                                    print("previous");
+                                    print(previous.toString());
+
+                                    int next = iterator + 1;
+                                    int iNext = iterator + 2;
+                                    int nextIterator;
+                                    if (iNext <= expression.length - 1 &&
+                                        expression[iNext] != "+" &&
+                                        expression[iNext] != "-" &&
+                                        expression[iNext] != "*" &&
+                                        expression[iNext] != "/" &&
+                                        expression[iNext] != "%") {
+                                      while (iNext <= expression.length - 1 &&
+                                          expression[iNext] != "+" &&
+                                          expression[iNext] != "-" &&
+                                          expression[iNext] != "*" &&
+                                          expression[iNext] != "/" &&
+                                          expression[iNext] != "%") {
+                                        iNext = iNext + 1;
+                                      }
+                                      next = int.parse(
+                                          expression.substring(next, iNext));
+                                      print("iNext");
+                                      print(iNext);
+                                      nextIterator = iNext - 1;
+                                    } else {
+                                      next =
+                                          int.parse(expression[iterator + 1]);
+                                      nextIterator = iterator + 1;
+                                    }
+
+                                    print("next");
+                                    print(next);
+
                                     int replacement = previous + next;
-                                    print(replacement.toString());
-                                    expression = expression.substring(
-                                            0, iterator - 1) +
-                                        replacement.toString() +
-                                        expression.substring(
-                                            iterator + 2, expression.length);
+                                    print(replacement);
+                                    print("prevIterator");
+                                    print(prevIterator);
+                                    print("nextIterator");
+                                    print(nextIterator);
+                                    expression =
+                                        expression.substring(0, prevIterator) +
+                                            replacement.toString() +
+                                            expression.substring(
+                                                nextIterator + 1,
+                                                expression.length);
                                   }
+                                  print(expression);
                                 }
                                 for (int iterator = 0;
                                     iterator < expression.length;
                                     iterator++) {
                                   if (expression[iterator] == "-") {
-                                    int previous =
-                                        int.parse(expression[iterator - 1]);
-                                    int next =
-                                        int.parse(expression[iterator + 1]);
+                                    int previous = iterator - 1;
+                                    int iPrev = iterator - 2;
+                                    int prevIterator;
+                                    if (iPrev >= 0 &&
+                                        expression[iPrev] != "+" &&
+                                        expression[iPrev] != "-" &&
+                                        expression[iPrev] != "*" &&
+                                        expression[iPrev] != "/" &&
+                                        expression[iPrev] != "%") {
+                                      while (iPrev >= 0 &&
+                                          expression[iPrev] != "+" &&
+                                          expression[iPrev] != "-" &&
+                                          expression[iPrev] != "*" &&
+                                          expression[iPrev] != "/" &&
+                                          expression[iPrev] != "%") {
+                                        iPrev = iPrev - 1;
+                                      }
+                                      print("iPrev");
+                                      print(iPrev);
+                                      print("previous");
+                                      print(previous);
+                                      previous = int.parse(expression.substring(
+                                          iPrev + 1, previous + 1));
+                                      prevIterator = iPrev + 1;
+                                    } else {
+                                      previous =
+                                          int.parse(expression[iterator - 1]);
+                                      prevIterator = iterator - 1;
+                                    }
+                                    print("previous");
+                                    print(previous.toString());
+
+                                    int next = iterator + 1;
+                                    int iNext = iterator + 2;
+                                    int nextIterator;
+                                    if (iNext <= expression.length - 1 &&
+                                        expression[iNext] != "+" &&
+                                        expression[iNext] != "-" &&
+                                        expression[iNext] != "*" &&
+                                        expression[iNext] != "/" &&
+                                        expression[iNext] != "%") {
+                                      while (iNext <= expression.length - 1 &&
+                                          expression[iNext] != "+" &&
+                                          expression[iNext] != "-" &&
+                                          expression[iNext] != "*" &&
+                                          expression[iNext] != "/" &&
+                                          expression[iNext] != "%") {
+                                        iNext = iNext + 1;
+                                      }
+                                      next = int.parse(
+                                          expression.substring(next, iNext));
+                                      nextIterator = iNext - 1;
+                                    } else {
+                                      next =
+                                          int.parse(expression[iterator + 1]);
+                                      nextIterator = iterator + 1;
+                                    }
+
+                                    print("next");
+                                    print(next);
+
                                     int replacement = previous - next;
-                                    print(replacement.toString());
-                                    expression = expression.substring(
-                                            0, iterator - 1) +
-                                        replacement.toString() +
-                                        expression.substring(
-                                            iterator + 2, expression.length);
+                                    print(replacement);
+                                    print("prevIterator");
+                                    print(prevIterator);
+                                    print("nextIterator");
+                                    print(nextIterator);
+                                    expression =
+                                        expression.substring(0, prevIterator) +
+                                            replacement.toString() +
+                                            expression.substring(
+                                                nextIterator + 1,
+                                                expression.length);
                                   }
                                   textBox.text = expression;
                                 }
@@ -221,7 +478,6 @@ class _State extends State<MyApp> {
             )
           ],
         ),
-        backgroundColor: Colors.black,
       ),
     );
   }
