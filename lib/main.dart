@@ -53,7 +53,6 @@ class _State extends State<MyApp> {
         body: Column(
           children: <Widget>[
             Container(
-//              margin: EdgeInsets.only(left: 10.0, right: 10),
               color: Colors.black87,
               height: 185.0,
               child: Center(
